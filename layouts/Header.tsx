@@ -1,14 +1,15 @@
 import { Box, Button, HStack, Heading } from "native-base";
 import ArrowLeft from "../assets/icons/arrow-left.svg";
 import { useRouter } from "expo-router";
+import { ComponentPropsWithoutRef } from "react";
 
 type HeaderProps = {
   title: string;
   leftItem?: React.ReactNode;
   rightItem?: React.ReactNode;
-};
+} & ComponentPropsWithoutRef<typeof HStack>;
 
-const Header = ({ title, leftItem, rightItem }: HeaderProps) => {
+const Header = ({ title, leftItem, rightItem, ...rest }: HeaderProps) => {
   const router = useRouter();
 
   return (
@@ -18,6 +19,7 @@ const Header = ({ title, leftItem, rightItem }: HeaderProps) => {
       alignItems="center"
       h={16}
       px={4}
+      {...rest}
     >
       <Box w={8}>
         <Button variant="unstyled" p={0} onPress={router.back}>

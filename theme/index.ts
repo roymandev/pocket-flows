@@ -1,5 +1,5 @@
 import { extendTheme } from "native-base";
-import { Button, Checkbox, Heading, Input } from "./components";
+import { Button, Checkbox, Heading, Input, Link } from "./components";
 
 const COLORS_VIOLET = {
   100: "#7F3DFF",
@@ -53,6 +53,7 @@ export const customTheme = extendTheme({
     Heading,
     Input,
     Checkbox,
+    Link,
   },
 });
 

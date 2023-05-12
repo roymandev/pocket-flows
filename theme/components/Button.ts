@@ -30,7 +30,7 @@ function variantLight({ colorScheme }: InterfaceButtonProps) {
   };
 }
 
-function variantOutline({ colorScheme }: InterfaceButtonProps) {
+function variantOutline() {
   return {
     bg: "light.100",
     borderColor: "light.60",
@@ -60,6 +60,7 @@ export const Button = {
   },
   sizes: {
     md: {
+      h: "56px",
       _text: {
         fontSize: 18,
       },
