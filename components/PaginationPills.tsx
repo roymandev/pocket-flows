@@ -1,4 +1,4 @@
-import { Button, Center, FlatList, HStack } from "native-base";
+import { Button, Center, FlatList, HStack, useTheme } from "native-base";
 import { ComponentPropsWithoutRef, useEffect, useMemo } from "react";
 import Animated, {
   useAnimatedStyle,
@@ -43,8 +43,10 @@ type PillProps = {
 } & ComponentPropsWithoutRef<typeof Button>;
 
 const Pill = ({ isActive, ...rest }: PillProps) => {
+  const theme = useTheme();
+
   const size = useSharedValue(8);
-  const bg = useSharedValue("#EEE5FF");
+  const bg = useSharedValue(theme.colors.primary[20]);
 
   const config = {
     duration: 200,
@@ -60,7 +62,7 @@ const Pill = ({ isActive, ...rest }: PillProps) => {
 
   useEffect(() => {
     size.value = isActive ? 16 : 8;
-    bg.value = isActive ? "#7F3DFF" : "#EEE5FF";
+    bg.value = isActive ? theme.colors.primary[100] : theme.colors.primary[20];
   }, [isActive]);
 
   return (

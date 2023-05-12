@@ -1,7 +1,7 @@
-import { Slot, SplashScreen, Stack } from "expo-router";
-import { NativeBaseProvider, extendTheme } from "native-base";
+import { Slot, SplashScreen } from "expo-router";
+import { Box, NativeBaseProvider } from "native-base";
 import { useEffect } from "react";
-import { themeConfig } from "../utils/themeConfig";
+import { customTheme } from "../theme";
 import {
   useFonts,
   Inter_500Medium,
@@ -21,8 +21,6 @@ const RootLayout = () => {
     Inter_700Bold,
   });
 
-  const theme = extendTheme(themeConfig);
-
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -31,8 +29,10 @@ const RootLayout = () => {
   if (!loaded) return <SplashScreen />;
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <Slot />
+    <NativeBaseProvider theme={customTheme}>
+      <Box safeArea flexGrow={1}>
+        <Slot />
+      </Box>
     </NativeBaseProvider>
   );
 };
