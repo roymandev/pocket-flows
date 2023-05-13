@@ -1,8 +1,9 @@
 const baseStyle = {
   placeholderTextColor: "light.20",
   borderRadius: 16,
+  px: 4,
+  py: 3,
   height: "56px",
-  padding: "16px 12px",
   borderColor: "light.60",
   fontWeight: 500,
   _hover: {
