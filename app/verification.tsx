@@ -1,14 +1,25 @@
-import { Box, Button, Text } from "native-base";
+import { Button, ScrollView, Text } from "native-base";
 import Header from "../layouts/Header";
 import { Link } from "native-base";
 import PinInput from "../components/PinInput";
+import { useRouter } from "expo-router";
 
 const VerificationScreen = () => {
+  const router = useRouter();
+
   return (
-    <Box flexGrow={1}>
+    <>
       <Header title="Verification" />
 
-      <Box mt="auto" p={4}>
+      <ScrollView
+        px={4}
+        flexGrow={1}
+        _contentContainerStyle={{
+          justifyContent: "flex-end",
+          flexGrow: 1,
+          py: 10,
+        }}
+      >
         <Text fontSize={36} fontWeight="medium" lineHeight={44}>
           Enter your Verification Code
         </Text>
@@ -23,9 +34,11 @@ const VerificationScreen = () => {
 
         <Link mt={4}>I didn't received the code? Send again</Link>
 
-        <Button mt={12}>Verify</Button>
-      </Box>
-    </Box>
+        <Button mt={12} onPress={() => router.replace("/login")}>
+          Verify
+        </Button>
+      </ScrollView>
+    </>
   );
 };
 

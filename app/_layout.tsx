@@ -1,5 +1,5 @@
 import { Slot, SplashScreen } from "expo-router";
-import { Box, NativeBaseProvider } from "native-base";
+import { Box, KeyboardAvoidingView, NativeBaseProvider } from "native-base";
 import { useEffect } from "react";
 import { customTheme } from "../theme";
 import {
@@ -8,6 +8,7 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { Platform } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,7 +32,12 @@ const RootLayout = () => {
   return (
     <NativeBaseProvider theme={customTheme}>
       <Box safeArea flexGrow={1}>
-        <Slot />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          flexGrow={1}
+        >
+          <Slot />
+        </KeyboardAvoidingView>
       </Box>
     </NativeBaseProvider>
   );

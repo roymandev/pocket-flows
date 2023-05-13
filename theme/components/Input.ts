@@ -23,6 +23,7 @@ const baseStyle = {
 const defaultProps = {
   fontSize: 16,
   spellCheck: false,
+  overflow: "hidden",
 };
 
 const variantOutline = {

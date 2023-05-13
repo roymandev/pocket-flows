@@ -1,10 +1,8 @@
 import {
-  Box,
   Button,
   Checkbox,
   FormControl,
   Input,
-  KeyboardAvoidingView,
   ScrollView,
   Text,
   useTheme,
@@ -14,7 +12,6 @@ import { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import IconGoogle from "../assets/icons/google.svg";
-import { Platform } from "react-native";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -22,13 +19,11 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <>
       <Header title="Sign Up" />
 
-      <ScrollView px={4} mt={12}>
-        <FormControl mt={2}>
+      <ScrollView px={4}>
+        <FormControl mt="56px">
           <Input placeholder="Name" />
         </FormControl>
 
@@ -96,7 +91,7 @@ const SignUpPage = () => {
           </Link>
         </Text>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 
