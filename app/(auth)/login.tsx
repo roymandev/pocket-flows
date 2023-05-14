@@ -9,12 +9,13 @@ import {
 import Header from "../../layouts/Header";
 import { useState } from "react";
 import { Feather } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import IconGoogle from "../../assets/icons/google.svg";
 import { supabase } from "../../utils/supabase";
 
 const LoginPage = () => {
   const theme = useTheme();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +31,11 @@ const LoginPage = () => {
       password: password,
     });
 
-    if (error) setError(error.message);
+    if (error) {
+      setError(error.message);
+    } else {
+      router.replace("/home");
+    }
 
     setLoading(false);
   };
