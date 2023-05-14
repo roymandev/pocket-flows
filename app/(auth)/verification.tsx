@@ -32,13 +32,7 @@ const VerificationScreen = () => {
     if (error) {
       setError(error.message);
     } else {
-      if (type === "email")
-        router.replace({
-          pathname: "/success",
-          params: {
-            redirect: "/home",
-          },
-        });
+      if (type === "email") router.replace("/home");
 
       if (type === "recovery")
         router.replace({

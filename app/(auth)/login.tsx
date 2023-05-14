@@ -34,12 +34,7 @@ const LoginPage = () => {
     if (error) {
       setError(error.message);
     } else {
-      router.replace({
-        pathname: "/success",
-        params: {
-          redirect: "/home",
-        },
-      });
+      router.replace("/home");
     }
 
     setLoading(false);
