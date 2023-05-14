@@ -34,7 +34,12 @@ const LoginPage = () => {
     if (error) {
       setError(error.message);
     } else {
-      router.replace("/home");
+      router.replace({
+        pathname: "/success",
+        params: {
+          redirect: "/home",
+        },
+      });
     }
 
     setLoading(false);
@@ -88,7 +93,7 @@ const LoginPage = () => {
 
         <Text textAlign="right" mt={3}>
           <Link
-            href="/login"
+            href="/forgot-password"
             style={{
               color: theme.colors.primary[100],
               textDecorationLine: "underline",

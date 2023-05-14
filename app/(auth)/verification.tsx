@@ -1,13 +1,17 @@
 import { Button, ScrollView, Text } from "native-base";
-import Header from "../layouts/Header";
+import Header from "../../layouts/Header";
 import { Link } from "native-base";
-import PinInput from "../components/PinInput";
+import PinInput from "../../components/PinInput";
 import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../utils/supabase";
+import { EmailOtpType } from "@supabase/supabase-js";
 
 const VerificationScreen = () => {
-  const { email } = useLocalSearchParams();
+  const { type, email } = useLocalSearchParams<{
+    type: EmailOtpType;
+    email: string;
+  }>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -15,30 +19,37 @@ const VerificationScreen = () => {
   const [token, setToken] = useState("");
 
   const submitTokenHandler = async () => {
-    if (typeof email !== "string") return;
+    if (!email || !type) return;
+
     setLoading(true);
 
     const { error } = await supabase.auth.verifyOtp({
+      type: type as any,
       email,
       token,
-      type: "email",
     });
 
     if (error) {
       setError(error.message);
     } else {
-      router.replace({
-        pathname: "/success",
-        params: {
-          redirect: "/home",
-        },
-      });
+      if (type === "email")
+        router.replace({
+          pathname: "/success",
+          params: {
+            redirect: "/home",
+          },
+        });
+
+      if (type === "recovery")
+        router.replace({
+          pathname: "/reset-password",
+        });
     }
 
     setLoading(false);
   };
 
-  if (!email) return <Redirect href="/" />;
+  if (!email || !type) return <Redirect href="/" />;
 
   return (
     <>

@@ -46,6 +46,7 @@ const SignUpPage = () => {
         pathname: "/verification",
         params: {
           email,
+          type: "email",
         },
       });
     }
