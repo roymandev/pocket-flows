@@ -12,6 +12,11 @@ function variantSolid({ colorScheme }: InterfaceButtonProps) {
     _pressed: {
       bg: `${colorScheme}.80`,
     },
+    _disabled: {
+      _text: {
+        color: "white",
+      },
+    },
   };
 }
 
@@ -56,6 +61,9 @@ export const Button = {
     borderRadius: 16,
     _text: {
       fontWeight: 500,
+    },
+    _disabled: {
+      opacity: 70,
     },
   },
   sizes: {

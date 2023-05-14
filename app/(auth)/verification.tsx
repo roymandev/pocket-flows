@@ -1,7 +1,7 @@
 import { Button, ScrollView, Text } from "native-base";
-import Header from "../layouts/Header";
+import Header from "../../layouts/Header";
 import { Link } from "native-base";
-import PinInput from "../components/PinInput";
+import PinInput from "../../components/PinInput";
 import { useRouter } from "expo-router";
 
 const VerificationScreen = () => {

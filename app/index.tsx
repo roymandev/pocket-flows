@@ -1,9 +1,14 @@
 import { Box, Button } from "native-base";
 import OnboardingCarousel from "../components/OnboardingCarousel";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 
 const OnboardingPage = () => {
   const router = useRouter();
+  const user = useContext(UserContext);
+
+  if (user) return <Redirect href="/home" />;
 
   return (
     <>

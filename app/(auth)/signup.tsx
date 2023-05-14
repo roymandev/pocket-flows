@@ -7,11 +7,11 @@ import {
   Text,
   useTheme,
 } from "native-base";
-import Header from "../layouts/Header";
+import Header from "../../layouts/Header";
 import { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
-import IconGoogle from "../assets/icons/google.svg";
+import IconGoogle from "../../assets/icons/google.svg";
 
 const SignUpPage = () => {
   const router = useRouter();
