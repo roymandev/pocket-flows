@@ -55,14 +55,12 @@ const RootLayout = () => {
     <NativeBaseProvider theme={customTheme}>
       <UserContext.Provider value={user!}>
         <StatusBar barStyle="dark-content" />
-        <Box safeArea flexGrow={1}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            flexGrow={1}
-          >
-            <Slot />
-          </KeyboardAvoidingView>
-        </Box>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          flexGrow={1}
+        >
+          <Slot />
+        </KeyboardAvoidingView>
       </UserContext.Provider>
     </NativeBaseProvider>
   );

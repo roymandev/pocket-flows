@@ -1,5 +1,5 @@
 import { extendTheme } from "native-base";
-import { Button, Checkbox, Heading, Input, Link } from "./components";
+import { Button, Checkbox, Heading, Input, Link, Select } from "./components";
 
 const COLORS_VIOLET = {
   100: "#7F3DFF",
@@ -40,6 +40,20 @@ export const customTheme = extendTheme({
       50: "#212325",
       25: "#292B2D",
     },
+    green: {
+      100: "#00A86B",
+      80: "#2AB784",
+      60: "#65D1AA",
+      40: "#93EACA",
+      20: "#CFFAEA",
+    },
+    red: {
+      100: "#FD3C4A",
+      80: "#FD5662",
+      60: "#FD6F7A",
+      40: "#FDA2A9",
+      20: "#FDD5D7",
+    },
   },
 
   fonts: {
@@ -54,6 +68,7 @@ export const customTheme = extendTheme({
     Input,
     Checkbox,
     Link,
+    Select,
   },
 });
 

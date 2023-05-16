@@ -21,7 +21,7 @@ const PinInput = ({
   const list = useMemo(() => Array(length).fill(null), [length]);
 
   const setCodeHanlder = (value: string) => {
-    onChange(value.replace(/\D/g, "").slice(0, length));
+    onChange(value.replace(/\D/g, ""));
   };
 
   return (
@@ -48,6 +48,7 @@ const PinInput = ({
         autoFocus={autoFocus}
         onKeyPress={(e) => (e.target as any)?.setSelectionRange?.(9, 9)}
         selection={{ start: length }}
+        maxLength={length}
       />
 
       <FlatList
