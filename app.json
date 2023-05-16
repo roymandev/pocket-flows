@@ -20,6 +20,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.royman.dev.pocketflows"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "14e0b7e7-e00e-45d5-9d4a-3b86c0396465"
       }
     }
   }
