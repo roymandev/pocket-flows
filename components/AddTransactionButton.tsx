@@ -65,7 +65,7 @@ const AddTransactionButton = () => {
             router.push({
               pathname: "/add-transaction",
               params: {
-                type: "expense",
+                type: "income",
               },
             });
           }}

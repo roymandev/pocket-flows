@@ -5,21 +5,39 @@ import {
   Input,
   ScrollView,
   Select,
-  StatusBar,
   Text,
   VStack,
   useTheme,
 } from "native-base";
 import IconArrowLeft from "../../components/icons/IconArrowLeft";
 import { numberToIDR } from "../../utils/currencyFormatter";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TabStatusBar from "../../components/utils/TabStatusBar";
+import { supabase } from "../../utils/supabase";
+import { UserContext } from "../../utils/UserContext";
+import { useIsFocused } from "@react-navigation/native";
+import { useDatabase } from "../../hooks/useDatabase";
 
-const AddExpensePage = () => {
+const AddTransactionPage = () => {
+  const isFocused = useIsFocused();
   const { type } = useLocalSearchParams<{ type: "expense" | "income" }>();
   const router = useRouter();
   const theme = useTheme();
+  const [loading, setLoading] = useState(false);
+
   const [amount, setAmount] = useState(0);
+  const { addTransaction } = useDatabase();
+
+  const onSubmitHandler = async () => {
+    setLoading(true);
+    await addTransaction(amount);
+    router.back();
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    isFocused && setAmount(0);
+  }, [isFocused]);
 
   if (!type) return <Redirect href="/home" />;
 
@@ -28,7 +46,7 @@ const AddExpensePage = () => {
       <TabStatusBar barStyle="light-content" />
       <Tabs.Screen
         options={{
-          title: type,
+          title: type === "income" ? "Income" : "Expense",
           headerTitleAlign: "center",
           headerTitleStyle: {
             color: theme.colors.light[100],
@@ -66,9 +84,10 @@ const AddExpensePage = () => {
             fontWeight="bold"
             fontSize={32}
             value={numberToIDR(amount)}
-            onChangeText={(value) =>
-              setAmount(parseInt(value.replace(/\D/g, "") || "0"))
-            }
+            onChangeText={(value) => {
+              const amount = parseInt(value.replace(/\D|\-/g, "") || "0");
+              setAmount(type === "income" ? amount : -Math.abs(amount));
+            }}
             px={0}
             h={20}
           />
@@ -88,7 +107,14 @@ const AddExpensePage = () => {
                 Add Attachment
               </Button>
 
-              <Button mt={6}>Continue</Button>
+              <Button
+                mt={6}
+                isLoading={loading}
+                isDisabled={!amount}
+                onPress={onSubmitHandler}
+              >
+                Continue
+              </Button>
             </VStack>
           </ScrollView>
         </Box>
@@ -97,4 +123,4 @@ const AddExpensePage = () => {
   );
 };
 
-export default AddExpensePage;
+export default AddTransactionPage;

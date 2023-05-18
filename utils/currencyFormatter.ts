@@ -12,10 +12,10 @@ export const numberToIDR = (
   }
 
   if (display === "short") {
-    const symbol = "Rp";
+    const symbol = number < 0 ? "-Rp" : "Rp";
     const suffixes = ["", "rb", "jt", "M", "B"]; // Customize the suffixes as per your requirement
     let suffixNum = 0;
-    let formattedNumber = number;
+    let formattedNumber = number < 0 ? Math.abs(number) : number;
 
     while (formattedNumber >= 1000 && suffixNum < suffixes.length - 1) {
       formattedNumber /= 1000;

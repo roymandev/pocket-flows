@@ -7,11 +7,10 @@ import {
   VStack,
   useTheme,
 } from "native-base";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import MonthSelector from "../../components/MonthSelector";
 import { numberToIDR } from "../../utils/currencyFormatter";
-import { UserContext } from "../../utils/UserContext";
 import { useDatabase } from "../../hooks/useDatabase";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
@@ -19,24 +18,52 @@ import IconArrowDown2 from "../../components/icons/IconArrowDown2";
 import TabStatusBar from "../../components/utils/TabStatusBar";
 import IconIncome from "../../components/icons/IconIncome";
 import IconExpense from "../../components/icons/IconExpense";
+import { useIsFocused } from "@react-navigation/native";
+import { Transactions } from "../../types/database";
 
 const HomePage = () => {
-  const user = useContext(UserContext);
+  const isFocused = useIsFocused();
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
+
   const [date, setDate] = useState(dayjs("2023-02"));
   const [balance, setBalance] = useState(0);
-  const { getBalance } = useDatabase();
-
-  const fetchBalance = async () => {
-    const { balance } = await getBalance();
-
-    if (balance) setBalance(balance);
-  };
+  const [transactions, setTransactions] = useState<
+    Omit<Transactions, "user_id">[]
+  >([]);
+  const [incomes, setIncomes] = useState(0);
+  const [expenses, setExpenses] = useState(0);
+  const { getBalance, getTransactions } = useDatabase();
 
   useEffect(() => {
-    fetchBalance();
-  }, []);
+    if (isFocused) {
+      (async () => {
+        const [balanceRes, transactionsRes] = await Promise.all([
+          getBalance(),
+          getTransactions(),
+        ]);
+
+        if (balanceRes.balance !== undefined) setBalance(balanceRes.balance);
+        if (transactionsRes.transactions) {
+          setTransactions(transactionsRes.transactions);
+
+          let income = 0;
+          let expense = 0;
+
+          transactionsRes.transactions.forEach(({ amount }) => {
+            if (amount > 0) {
+              income += amount;
+            } else {
+              expense += amount;
+            }
+          });
+
+          setIncomes(income);
+          setExpenses(expense);
+        }
+      })();
+    }
+  }, [isFocused]);
 
   return (
     <>
@@ -105,7 +132,7 @@ const HomePage = () => {
                 </Text>
               </HStack>
               <Text fontSize="lg" color="light.80" fontWeight="semibold">
-                {numberToIDR(100000000, "short")}
+                {numberToIDR(incomes, "short")}
               </Text>
             </VStack>
             <VStack
@@ -128,7 +155,7 @@ const HomePage = () => {
                 </Text>
               </HStack>
               <Text fontSize="lg" color="light.80" fontWeight="semibold">
-                {numberToIDR(100000, "short")}
+                {numberToIDR(expenses, "short")}
               </Text>
             </VStack>
           </HStack>
