@@ -13,12 +13,14 @@ import MonthSelector from "../../components/MonthSelector";
 import { numberToIDR } from "../../utils/currencyFormatter";
 import { UserContext } from "../../utils/UserContext";
 import { useDatabase } from "../../hooks/useDatabase";
-import ArrowDown from "../../assets/icons/arrow-down-2-purple.svg";
-import Income from "../../assets/icons/income.svg";
-import Expense from "../../assets/icons/expense.svg";
+import IncomeIcon from "../../assets/icons/income.svg";
+import ExpenseIcon from "../../assets/icons/expense.svg";
 import { LinearGradient } from "expo-linear-gradient";
+import { Tabs } from "expo-router";
+import IconHome from "../../components/icons/IconHome";
+import IconArrowDown2 from "../../components/icons/IconArrowDown2";
 
-const home = () => {
+const HomePage = () => {
   const user = useContext(UserContext);
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,6 +40,35 @@ const home = () => {
 
   return (
     <>
+      <Tabs.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: "#FFF6E6",
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTitleAlign: "center",
+          headerTitle: () => (
+            <Button
+              variant="outline"
+              rounded="full"
+              pr={4}
+              _text={{
+                fontSize: 14,
+                fontWeight: "medium",
+              }}
+              py={0}
+              h={10}
+              onPress={() => setModalOpen(true)}
+              leftIcon={<IconArrowDown2 color={theme.colors.primary[100]} />}
+            >
+              {date.format(
+                `MMMM ${date.year() === dayjs().year() ? "" : "YYYY"}`
+              )}
+            </Button>
+          ),
+        }}
+      />
       <Box roundedBottom={32} overflow="hidden">
         <LinearGradient
           colors={["#FFF6E6", "rgba(248, 237, 216, 0)"]}
@@ -53,25 +84,7 @@ const home = () => {
             my={3}
           >
             <Box w={8}></Box>
-            <Box>
-              <Button
-                variant="outline"
-                rounded="full"
-                pr={4}
-                _text={{
-                  fontSize: 14,
-                  fontWeight: "medium",
-                }}
-                py={0}
-                h={10}
-                onPress={() => setModalOpen(true)}
-                leftIcon={<ArrowDown />}
-              >
-                {date.format(
-                  `MMMM ${date.year() === dayjs().year() ? "" : "YYYY"}`
-                )}
-              </Button>
-            </Box>
+            <Box></Box>
             <Box w={8}></Box>
           </HStack>
 
@@ -93,7 +106,7 @@ const home = () => {
             >
               <HStack alignItems="center" space={2}>
                 <Center bg="light.80" w={8} h={8} rounded={12}>
-                  <Income width={24} height={24} />
+                  <IncomeIcon width={24} height={24} />
                 </Center>
                 <Text color="light.80" fontWeight="medium">
                   Income
@@ -113,7 +126,7 @@ const home = () => {
             >
               <HStack alignItems="center" space={2}>
                 <Center bg="light.80" w={8} h={8} rounded={12}>
-                  <Expense width={24} height={24} />
+                  <ExpenseIcon width={24} height={24} />
                 </Center>
                 <Text color="light.80" fontWeight="medium">
                   Expense
@@ -137,4 +150,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default HomePage;
