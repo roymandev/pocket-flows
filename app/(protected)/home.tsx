@@ -76,18 +76,6 @@ const HomePage = () => {
           style={{ height: "100%", position: "absolute", width: "100%" }}
         />
         <Box safeArea px={4} pb={4}>
-          <HStack
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            h={10}
-            my={3}
-          >
-            <Box w={8}></Box>
-            <Box></Box>
-            <Box w={8}></Box>
-          </HStack>
-
           <Text textAlign="center" fontWeight="medium" color="light.20">
             Account Balance
           </Text>
