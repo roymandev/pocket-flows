@@ -13,12 +13,12 @@ import MonthSelector from "../../components/MonthSelector";
 import { numberToIDR } from "../../utils/currencyFormatter";
 import { UserContext } from "../../utils/UserContext";
 import { useDatabase } from "../../hooks/useDatabase";
-import IncomeIcon from "../../assets/icons/income.svg";
-import ExpenseIcon from "../../assets/icons/expense.svg";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
-import IconHome from "../../components/icons/IconHome";
 import IconArrowDown2 from "../../components/icons/IconArrowDown2";
+import TabStatusBar from "../../components/utils/TabStatusBar";
+import IconIncome from "../../components/icons/IconIncome";
+import IconExpense from "../../components/icons/IconExpense";
 
 const HomePage = () => {
   const user = useContext(UserContext);
@@ -40,6 +40,7 @@ const HomePage = () => {
 
   return (
     <>
+      <TabStatusBar barStyle="dark-content" />
       <Tabs.Screen
         options={{
           headerStyle: {
@@ -94,7 +95,10 @@ const HomePage = () => {
             >
               <HStack alignItems="center" space={2}>
                 <Center bg="light.80" w={8} h={8} rounded={12}>
-                  <IncomeIcon width={24} height={24} />
+                  <IconIncome
+                    color={theme.colors.green[100]}
+                    viewBox="-2 -2 36 36"
+                  />
                 </Center>
                 <Text color="light.80" fontWeight="medium">
                   Income
@@ -114,7 +118,10 @@ const HomePage = () => {
             >
               <HStack alignItems="center" space={2}>
                 <Center bg="light.80" w={8} h={8} rounded={12}>
-                  <ExpenseIcon width={24} height={24} />
+                  <IconExpense
+                    color={theme.colors.red[100]}
+                    viewBox="-2 -2 36 36"
+                  />
                 </Center>
                 <Text color="light.80" fontWeight="medium">
                   Expense

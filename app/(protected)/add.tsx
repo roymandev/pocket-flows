@@ -1,5 +1,5 @@
-const Add = () => {
+const add = () => {
   return null;
 };
 
-export default Add;
+export default add;

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../utils/UserContext";
-import { Redirect, Tabs } from "expo-router";
+import { Redirect, Tabs, useRouter } from "expo-router";
 import { Box, Button, HStack, Pressable, VStack, useTheme } from "native-base";
 import TabBar from "../../assets/images/Subtract.svg";
 import IconHome from "../../components/icons/IconHome";
@@ -8,6 +8,9 @@ import IconTransaction from "../../components/icons/IconTransaction";
 import IconPlus from "../../components/icons/IconPlus";
 import IconPieChart from "../../components/icons/IconPieChart";
 import IconUser from "../../components/icons/IconUser";
+import IconExpense from "../../components/icons/IconExpense";
+import IconIncome from "../../components/icons/IconIncome";
+import AddTransactionButton from "../../components/AddTransactionButton";
 
 const ProtectedRouteLayout = () => {
   const theme = useTheme();
@@ -34,22 +37,7 @@ const ProtectedRouteLayout = () => {
           fontWeight: "500",
         },
         tabBarButton: ({ children, onPress }) => {
-          if (route.name === "add")
-            return (
-              <Box w="1/5">
-                <Button
-                  mx="auto"
-                  bottom={2}
-                  w={57}
-                  h={57}
-                  rounded="full"
-                  p={0}
-                  onPress={onPress}
-                >
-                  <IconPlus color={theme.colors.light[100]} />
-                </Button>
-              </Box>
-            );
+          if (route.name === "add") return <AddTransactionButton />;
 
           return (
             <Pressable w="1/5" onPress={onPress}>
@@ -91,6 +79,13 @@ const ProtectedRouteLayout = () => {
         options={{
           title: "Add",
           tabBarIcon: ({ color }) => <IconTransaction color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="add-transaction"
+        options={{
+          href: null,
         }}
       />
       <Tabs.Screen
